@@ -28,8 +28,6 @@ import FeatureDetector from "../cortico/Widget/adapters/FeatureDetecter";
 import InboxDocument from "../cortico/Widget/adapters/InboxDocument";
 import Encounter from "../core/Encounter";
 import { BroadcastChannel } from "broadcast-channel";
-
-import dayjs from "dayjs";
 class MessengerError extends Error {
   constructor(title, message) {
     super(message);

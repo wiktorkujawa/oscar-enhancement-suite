@@ -160,11 +160,13 @@ const init_cortico = async function () {
     if (oscar.isEncounterPage()) {
       CorticoWidget(document.body, corticoWidgetContainer, {
         disabledFeatures: ["automation"],
+        hasPatient: true,
       });
     } else {
       CorticoWidget(document.body, corticoWidgetContainer, {
         disabledFeatures: ["text", "automation"],
         eForm: true,
+        hasPatient: true,
       });
 
       if (oscar.isKaiOscarHost()) {
@@ -178,11 +180,13 @@ const init_cortico = async function () {
     CorticoWidget(document.body, corticoWidgetContainer, {
       disabledFeatures: ["text", "automation"],
       document: true,
+      hasPatient: true,
     });
   } else if (oscar.isInboxDocument()) {
     CorticoWidget(document.body, corticoWidgetContainer, {
       disabledFeatures: ["text", "encounter", "automation"],
       inboxDocument: true,
+      hasPatient: true,
     });
   } else if (route.indexOf("/oscarRx/ViewScript2.jsp") > -1) {
     // We need to determine first if the prescription is "delivery"

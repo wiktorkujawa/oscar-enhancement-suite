@@ -5,7 +5,7 @@ import WidgetSettings from "./WidgetSettings";
 import WidgetAutomation from "./WidgetAutomation";
 import { isLoggedIn } from "../../Utils/Utils";
 import AccountInformation from "./AccountInformation";
-import { MinusIcon } from "@heroicons/react/solid";
+import { MinusIcon, CogIcon } from "@heroicons/react/solid";
 import { useDispatch, useSelector } from "react-redux";
 import WidgetMessenger from "./messenger/WidgetMessenger";
 import Notifications from "./features/Notifications/Notifications";
@@ -15,10 +15,11 @@ import storage from "./storage/index";
 import Dialog from "./features/Dialog/Dialog";
 import { RefreshIcon } from "@heroicons/react/outline";
 import Button from "../../core/Button";
-
+import { getPatientInfo } from "../../../cortico";
+import { getDemographicNo } from "../../Utils/Utils";
 export default function CorticoPlugin({ onMinimize, ...props }) {
   const dispatch = useDispatch();
-  const { refresh } = useSelector((state) => state.app);
+  const { refresh, hasPatient } = useSelector((state) => state.app);
   const { items } = useSelector((state) => state.sidebar);
   const loggedIn = useSelector((state) => state.auth.isLoggedIn);
   const [activeItem, setActiveItem] = useState("Account");
@@ -77,6 +78,31 @@ export default function CorticoPlugin({ onMinimize, ...props }) {
       window.location.reload();
     });
   };
+
+  useEffect(() => {
+    const demographicNo = getDemographicNo();
+    if (hasPatient === true && demographicNo) {
+      getPatientInfo(demographicNo)
+        .then((response) => {
+          dispatch({
+            type: "patient/setAll",
+            payload: response,
+          });
+
+          dispatch({
+            type: "sidebar/addItems",
+            payload: {
+              name: "Settings",
+              icon: <CogIcon className="tw-w-4 tw-h-4" />,
+              current: false,
+            },
+          });
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, [hasPatient]);
 
   return (
     <div className="tw-flex tw-h-full">

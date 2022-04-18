@@ -36,9 +36,12 @@ const initialState = {
 export function sidebarReducer(state = initialState, action) {
   switch (action.type) {
     case "sidebar/addItems":
-      const temp = state.slice();
+      const temp = state.items.slice();
       temp.push(action.payload);
-      return temp;
+      return {
+        ...state,
+        items: temp,
+      };
     case "sidebar/setCurrent": {
       const temp = state.items.slice().map((i) => {
         if (i.name === action.payload) {
