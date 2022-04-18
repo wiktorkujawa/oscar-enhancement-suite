@@ -1920,6 +1920,8 @@ export async function getPatientInfo(demographicNo) {
     }
   }
 
+  info.demographicNo = demographicNo;
+
   // The following method of parsing the markup for email addresses is no longer used since it can find
   // contacts or other bad strings.
   // var re = /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi;

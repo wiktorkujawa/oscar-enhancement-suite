@@ -2,9 +2,19 @@ import Header from "./base/Header";
 import { useSelector } from "react-redux";
 import isEmpty from "lodash/isEmpty";
 import classNames from "classnames";
+import Button from "../../core/Button";
 
 export default function WidgetPatient() {
   const patient = useSelector((state) => state.patient);
+  const { clinic_name } = useSelector((state) => state.app);
+
+  const handleRecall = () => {
+    window.open(
+      `https://${localStorage.getItem("clinicname")}.${localStorage.getItem(
+        "customUrlSuffix"
+      )}/invite-patient-booking/?demographic_no=${patient.demographicNo}`
+    );
+  };
 
   return (
     <div className="tw-font-sans tw-p-4">
@@ -18,7 +28,20 @@ export default function WidgetPatient() {
           <div>Empty</div>
         ) : (
           <>
-            <div className="tw-space-y-7">
+            <div className="tw-mb-4">
+              <Button
+                onClick={handleRecall}
+                size="xs"
+                className="tw-bg-indigo-100 tw-text-blue-1000 tw-text-sm  tw-rounded-md tw-font-medium "
+                variant="custom"
+              >
+                <span className="tw-flex tw-items-center tw-cursor-pointer">
+                  <span className="tw-cursor-pointer">Recall Patient</span>
+                </span>
+              </Button>
+            </div>
+
+            <div className="tw-space-y-5">
               <div className="tw-grid tw-grid-cols-2 tw-gap-2">
                 <div>
                   <Dt>First Name</Dt>
