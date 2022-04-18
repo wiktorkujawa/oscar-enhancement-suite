@@ -3,9 +3,10 @@ import { useState, useEffect } from "preact/hooks";
 import WidgetSidebar from "./WidgetSidebar";
 import WidgetSettings from "./WidgetSettings";
 import WidgetAutomation from "./WidgetAutomation";
+import WidgetPatient from "./WidgetPatient";
 import { isLoggedIn } from "../../Utils/Utils";
 import AccountInformation from "./AccountInformation";
-import { MinusIcon, CogIcon } from "@heroicons/react/solid";
+import { MinusIcon, CogIcon, DocumentReportIcon } from "@heroicons/react/solid";
 import { useDispatch, useSelector } from "react-redux";
 import WidgetMessenger from "./messenger/WidgetMessenger";
 import Notifications from "./features/Notifications/Notifications";
@@ -92,8 +93,8 @@ export default function CorticoPlugin({ onMinimize, ...props }) {
           dispatch({
             type: "sidebar/addItems",
             payload: {
-              name: "Settings",
-              icon: <CogIcon className="tw-w-4 tw-h-4" />,
+              name: "Patient",
+              icon: <DocumentReportIcon className="tw-w-4 tw-h-4" />,
               current: false,
             },
           });
@@ -139,6 +140,10 @@ export default function CorticoPlugin({ onMinimize, ...props }) {
         ) : activeItem === "Messenger" ? (
           <div className="tw-p-4 tw-h-full">
             <WidgetMessenger />
+          </div>
+        ) : activeItem === "Patient" ? (
+          <div className="tw-p-4 tw-h-full">
+            <WidgetPatient />
           </div>
         ) : (
           ""

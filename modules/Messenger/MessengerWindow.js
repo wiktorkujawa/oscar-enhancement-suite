@@ -53,6 +53,7 @@ function MessengerWindow({ encounter: encounterOption, ...props }) {
   const [openSavedReplies, setOpenSavedReplies] = useState(false);
   const [patientInfo, setPatientInfo] = useState(null);
   const { clinic_name: clinicName, uid } = useSelector((state) => state.app);
+  const patient = useSelector((state) => state.patient);
 
   const handleEncounter = async (scheme, subject, body) => {
     try {
@@ -356,15 +357,10 @@ function MessengerWindow({ encounter: encounterOption, ...props }) {
   }, [eform]);
 
   useEffect(() => {
-    const demographicNo = getDemographicNo();
-    if (demographicNo && !patientInfo) {
-      getPatientInfo().then((patientInfo) => {
-        if (patientInfo) {
-          setPatientInfo(patientInfo);
-        }
-      });
+    if (patient) {
+      setPatientInfo(patient);
     }
-  }, []);
+  }, [patient]);
 
   useEffect(() => {
     if (patientInfo) {
