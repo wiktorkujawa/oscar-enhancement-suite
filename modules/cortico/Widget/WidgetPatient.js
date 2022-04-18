@@ -47,6 +47,12 @@ export default function WidgetPatient() {
               </div>
               <div className="tw-grid tw-grid-cols-2 tw-gap-2">
                 <div>
+                  <Dt>Phone (Cell)</Dt>
+                  <Dd>{patient["Cell PhoneHistory"] || "N/A"}</Dd>
+                </div>
+              </div>
+              <div className="tw-grid tw-grid-cols-2 tw-gap-2">
+                <div>
                   <Dt>Sex</Dt>
                   <Dd>{patient["Sex"] || "N/A"}</Dd>
                 </div>
