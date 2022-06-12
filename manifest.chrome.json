@@ -8,8 +8,12 @@
   "icons": {
     "48": "resources/icons/cortico-48.png"
   },
+  "background": {
+    "service_worker": "sw.js"
+  },
   "content_scripts": [
     {
+      
       "matches": [
         "https://*/appointment/addappointment.jsp*",
         "https://*/appointment/editappointment.jsp*",
@@ -29,14 +33,21 @@
         "https://*/*/eform/efmformadd_data.jsp*",
         "https://*/*/eform/efmshowform_data.jsp*",
         "https://*/*/dms/documentReport.jsp*",
-        "https://*/*/dms/showDocument.jsp*"
+        "https://*/*/dms/showDocument.jsp*",
+        "https://*/*/oscarRx/ViewScript2.jsp*"
       ],
       "js": [
         "dist/cortico-min.js"
-      ]
+      ],
+      "all_frames": true
     }
   ],
+  "host_permissions": [
+    "*://*/*"
+  ],
   "permissions": [
-    "storage"
+    "storage",
+    "tabs",
+    "scripting"
   ]
 }

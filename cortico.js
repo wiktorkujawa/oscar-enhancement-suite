@@ -101,6 +101,7 @@ const init_cortico = async function () {
 
   console.log("cortico plug-in initializing, version:", version);
   window.pubsub = pubsub;
+  console.log("" + window.location);
 
   const corticoWidgetContainer = document.createElement("div");
   document.body.append(corticoWidgetContainer);
@@ -109,7 +110,9 @@ const init_cortico = async function () {
   const modal = new Modal();
   modal.setContent(Dashboard());
   modal.show();
+  
 */
+
   if (
     route.indexOf("/appointment/addappointment.jsp") > -1 ||
     route.indexOf("/appointment/editappointment.jsp") > -1
@@ -189,14 +192,19 @@ const init_cortico = async function () {
       inboxDocument: true,
     });
   } else if (route.indexOf("/oscarRx/ViewScript2.jsp") > -1) {
-    // We need to determine first if the prescription is "delivery"
     console.log("Fax Page");
+    // We need to determine first if the prescription is "delivery"
+    document.getElementById("faxButton").addEventListener("click", (e) => {
+      console.log("fax button clicked");
+      chrome.runtime.sendMessage({ greeting: "hello" }, function (response) {
+        console.log("Farewell", response.farewell);
+      });
+    });
     const currentPharmacyCode = localStorage.getItem("currentPharmacyCode");
     if (currentPharmacyCode.toLowerCase().indexOf("dlvr") > -1) {
       const additionalNotes = document.getElementById("additionalNotes");
       additionalNotes.value = "FOR DELIVERY";
       // make sure the preview frame is loaded before adding the notes
-      const previewFrame = document.getElementById("preview");
 
       previewFrame.addEventListener("load", function () {
         // addNotes is a function in oscar
