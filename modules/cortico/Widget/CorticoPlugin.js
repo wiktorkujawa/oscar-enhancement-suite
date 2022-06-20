@@ -20,6 +20,7 @@ import { RefreshIcon } from "@heroicons/react/outline";
 import Button from "../../core/Button";
 import { BroadcastChannel } from "broadcast-channel";
 import { handleTokenExpiry } from "./common/utils";
+import SplashPage from "./splash/SplashPage";
 
 export default function CorticoPlugin({ onMinimize, ...props }) {
   const dispatch = useDispatch();
@@ -148,6 +149,7 @@ export default function CorticoPlugin({ onMinimize, ...props }) {
 
   return (
     <div className="tw-flex tw-h-full">
+      <SplashPage></SplashPage>
       {refresh ? (
         <AlertDialog
           icon={
